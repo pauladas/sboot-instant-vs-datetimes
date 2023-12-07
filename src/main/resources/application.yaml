@@ -1,0 +1,46 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /sboot-instant-vs-zoned
+
+spring:
+  profiles:
+    active: ${PROFILE:}
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PWD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  flyway:
+    enabled: true
+    locations: classpath:/db/migration
+    baseline-on-migrate: true
+    encoding: UTF-8
+
+management:
+  endpoint:
+    health:
+      show-components: always
+  endpoints:
+    web:
+      sboot-instant-vs-zoned: /v1/actuator
+      exposure:
+        include: health, info
+
+logging:
+  file:
+    path: .
+    name: sboot-instant-vs-zoneddatetime.log
+  level:
+    root: info
+    org:
+      springframework:
+        web: info
+    br:
+      com:
+        paulojof: debug
