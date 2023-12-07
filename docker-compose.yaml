@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  db:
+    container_name: db_instant
+    image: mysql:8
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_instant:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: db_instant
+      MYSQL_ROOT_PASSWORD: root
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 500m
+
+volumes:
+  db_instant:
